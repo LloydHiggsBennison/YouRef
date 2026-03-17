@@ -43,7 +43,7 @@ export function PipelineFunnel({ data }) {
               <div className="ml-4 flex-1">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold uppercase tracking-widest text-slate-500">{stage.label}</span>
-                  <span className="text-lg font-display font-bold text-slate-900">{total}</span>
+                  <span className="text-lg font-display font-bold text-slate-950">{total}</span>
                 </div>
                 <div className="text-[10px] text-slate-400 font-medium">{percentage}% del pico máximo</div>
               </div>

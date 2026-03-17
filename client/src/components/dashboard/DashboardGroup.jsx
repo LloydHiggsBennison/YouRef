@@ -12,7 +12,7 @@ export function DashboardGroup({ title, color, data, icon }) {
       </div>
       <div className="space-y-3">
         {data.map((item) => (
-          <div key={item.label} className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3">
+          <div key={item.label} className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3 border border-transparent dark:border-white/5">
             <span className="text-sm font-medium text-slate-700">{item.label}</span>
             <span className="text-lg font-semibold text-slate-950">{item.value || "-"}</span>
           </div>
@@ -31,7 +31,7 @@ export function MiniBars({ title, data, accent, tone }) {
           <div className="premium-eyebrow">Analitica</div>
           <h3 className="font-display text-[1.65rem] font-semibold tracking-[-0.03em] text-slate-950">{title}</h3>
         </div>
-        <div className="rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ backgroundColor: tone, color: "#0f172a" }}>
+        <div className="rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ backgroundColor: tone, color: "rgba(15, 23, 42, 0.9)" }}>
           Dinamico
         </div>
       </div>

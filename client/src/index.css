@@ -381,6 +381,7 @@ body::before {
   color: #cbd5e1 !important;
 }
 
+.theme-dark .text-slate-900,
 .theme-dark .text-slate-950 {
   color: #f8fafc !important;
 }
