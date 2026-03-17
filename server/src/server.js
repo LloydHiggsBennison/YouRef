@@ -299,7 +299,7 @@ app.post("/api/referrals", authRequired(), async (req, res) => {
 });
 
 app.patch("/api/referrals/:id/status", authRequired(), async (req, res) => {
-  const { stage, status } = req.body;
+  const { stage, status, statusNote } = req.body;
 
   const { data: referral, error: fetchError } = await supabase
     .from("referrals")
@@ -317,13 +317,14 @@ app.patch("/api/referrals/:id/status", authRequired(), async (req, res) => {
     return;
   }
 
-  const oldData = { stage: referral.stage, status: referral.status };
+  const oldData = { stage: referral.stage, status: referral.status, status_note: referral.status_note };
 
   const { data: updatedReferral, error: updateError } = await supabase
     .from("referrals")
     .update({
       stage,
       status,
+      status_note: statusNote,
       updated_at: new Date().toISOString(),
       updated_by_userid: req.user.id
     })
@@ -340,7 +341,7 @@ app.patch("/api/referrals/:id/status", authRequired(), async (req, res) => {
     action: "status_change",
     performedByUserId: req.user.id,
     oldData: oldData,
-    newData: { stage, status }
+    newData: { stage, status, status_note: statusNote }
   });
 
   res.json({ referral: updatedReferral });

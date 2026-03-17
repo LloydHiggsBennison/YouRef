@@ -131,17 +131,28 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
     }
   };
 
+  const mapReferral = (item) => ({
+    ...item,
+    firstName: item.firstName || item.first_name || "",
+    lastName: item.lastName || item.last_name || "",
+    downPayment: item.downPayment || item.down_payment || 0,
+    income: item.income || item.income_level || 0, // Adding extra fallbacks
+    description: item.description || item.notes || "",
+    statusNote: item.statusNote || item.status_note || ""
+  });
+
   const startEditing = (item) => {
-    setEditingId(item.id);
+    const mapped = mapReferral(item);
+    setEditingId(mapped.id);
     setReferralForm({
-      ...item,
-      income: item.income.toString(),
-      downPayment: item.downPayment.toString()
+      ...mapped,
+      income: (mapped.income ?? 0).toString(),
+      downPayment: (mapped.downPayment ?? 0).toString()
     });
     setTab("referrals");
     // If it has a region, fetch comunas
-    if (item.region) {
-      handleRegionChange(item.region);
+    if (mapped.region) {
+      handleRegionChange(mapped.region);
     }
   };
 
@@ -158,7 +169,7 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
 
   async function loadReferrals() {
     const data = await apiRequest("/referrals", { token: auth.token });
-    setReferrals(data.referrals);
+    setReferrals((data.referrals || []).map(mapReferral));
   }
 
   async function loadDashboard() {
@@ -211,10 +222,10 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
     }
   }
 
-  async function updateStatus(id, stage, status, note = "") {
+  async function updateStatus(id, stage, status, statusNote = "") {
     try {
-      const data = await apiRequest(`/referrals/${id}/status`, { method: "PATCH", token: auth.token, body: { stage, status, note } });
-      setReferrals((prev) => prev.map((item) => (item.id === id ? data.referral : item)));
+      const data = await apiRequest(`/referrals/${id}/status`, { method: "PATCH", token: auth.token, body: { stage, status, statusNote } });
+      setReferrals((prev) => prev.map((item) => (item.id === id ? mapReferral(data.referral) : item)));
       loadDashboard();
       loadAdminDashboard(selectedUser);
       setMessage("Estado actualizado con éxito.");
@@ -508,14 +519,19 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
                             {(item.goals || []).map((goal) => <span key={goal} className="rounded-full bg-primary/5 px-2.5 py-1 text-[9px] font-bold uppercase text-primary border border-primary/10">{goal}</span>)}
                             <span className="rounded-full bg-slate-50 px-2.5 py-1 text-[9px] font-bold uppercase text-slate-600 border border-slate-100">{item.commune}</span>
                           </div>
-                          <button
-                            type="button"
-                            onClick={() => startEditing(item)}
-                            className="mt-6 text-[10px] font-bold uppercase tracking-[0.15em] text-indigo-600 hover:text-indigo-700 transition-colors flex items-center gap-2"
-                          >
-                            <span className="h-4 w-4 rounded-full bg-indigo-50 flex items-center justify-center">✎</span>
-                            Editar Información
-                          </button>
+                          {item.description && (
+                            <p className="mt-4 text-sm leading-relaxed text-slate-600 italic">"{item.description}"</p>
+                          )}
+                          {auth.user.role === "admin" && (
+                            <button
+                              type="button"
+                              onClick={() => startEditing(item)}
+                              className="mt-6 text-[10px] font-bold uppercase tracking-[0.15em] text-indigo-600 hover:text-indigo-700 transition-colors flex items-center gap-2"
+                            >
+                              <span className="h-4 w-4 rounded-full bg-indigo-50 flex items-center justify-center">✎</span>
+                              Editar Información
+                            </button>
+                          )}
                         </div>
                       </div>
                     </article>
@@ -549,16 +565,17 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
 
                       {auth.user.role === "admin" && (
                         <div className="flex flex-col gap-3 min-w-[240px]">
-                          <select value={item.stage} onChange={(e) => updateStatus(item.id, e.target.value, (stageDefaults[e.target.value] || [])[0])} className="premium-input text-xs font-bold uppercase tracking-wider">
+                          <select value={item.stage} title="Cambiar Etapa" onChange={(e) => updateStatus(item.id, e.target.value, (stageDefaults[e.target.value] || [])[0], item.statusNote)} className="premium-input text-xs font-bold uppercase tracking-wider">
                             {Object.entries(stageLabels).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
                           </select>
-                          <select value={item.status} onChange={(e) => updateStatus(item.id, item.stage, e.target.value)} className="premium-input text-xs">
+                          <select value={item.status} title="Cambiar Estado" onChange={(e) => updateStatus(item.id, item.stage, e.target.value, item.statusNote)} className="premium-input text-xs">
                             {(stageDefaults[item.stage] || []).map(s => <option key={s} value={s}>{s}</option>)}
                           </select>
                           <textarea
                             placeholder="Agregar nota de estado..."
                             className="premium-input text-xs h-20 resize-none"
-                            onBlur={(e) => e.target.value && updateStatus(item.id, item.stage, item.status, e.target.value)}
+                            defaultValue={item.statusNote || ""}
+                            onBlur={(e) => updateStatus(item.id, item.stage, item.status, e.target.value)}
                           />
                         </div>
                       )}
