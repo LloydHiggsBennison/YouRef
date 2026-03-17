@@ -8,6 +8,7 @@ import { DashboardGroup, MiniBars } from "../dashboard/DashboardGroup";
 import { SectionTitle, Field } from "../ui/Input";
 import { DonutChart, StageTable, StatusGrid } from "../dashboard/DashboardCharts";
 import { PipelineFunnel } from "../dashboard/PipelineFunnel";
+import "./MobileApp.css";
 
 const emptyReferral = {
   firstName: "",
@@ -289,10 +290,18 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
 
   return (
     <div className={classNames("theme-shell min-h-screen", theme === "dark" ? "theme-dark" : "theme-light")}>
-      {/* Main Layout Grid - Restored and Fixed Structure */}
-      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-6 p-4 md:p-6 lg:grid-cols-[280px_1fr] lg:pt-6">
-        {/* Sidebar - Desktop Sticky / Mobile Grid */}
-        <aside className="premium-dark-panel h-fit lg:sticky lg:top-6 p-6 lg:p-8 flex flex-col overflow-hidden transition-all duration-300">
+      {/* Mobile Top Bar */}
+      <header className="mobile-top-bar lg:hidden">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#0f172a_0%,#223d61_100%)] text-sm font-black text-white">YR</div>
+          <span className="font-display text-xl font-bold text-slate-950">YouRef</span>
+        </div>
+        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+      </header>
+
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-6 p-4 md:p-6 lg:grid-cols-[280px_1fr] lg:pt-6 mobile-app-container">
+        {/* Sidebar - Desktop Only */}
+        <aside className="premium-dark-panel h-fit lg:sticky lg:top-6 p-6 lg:p-8 flex flex-col overflow-hidden transition-all duration-300 mobile-hide-sidebar">
           <div className="premium-orb premium-orb-gold !top-[-110px] !right-[-50px] !h-[220px] !w-[220px] opacity-40" />
           <div className="relative z-10 flex h-full flex-col">
             <div className="flex items-center justify-between gap-3">
@@ -715,6 +724,25 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
           )}
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <nav className="mobile-bottom-nav lg:hidden">
+        {[
+          ["dashboard", "🏠", "Dash"],
+          ["referrals", "📝", "Refer"],
+          ["tracking", "📋", "Sigue"],
+          ["profile", "👤", "Perfil"]
+        ].map(([id, icon, label]) => (
+          <button
+            key={id}
+            onClick={() => setTab(id)}
+            className={classNames("mobile-nav-item", tab === id && "active")}
+          >
+            <span className="mobile-nav-icon">{icon}</span>
+            <span>{label}</span>
+          </button>
+        ))}
+      </nav>
     </div>
   );
 }
