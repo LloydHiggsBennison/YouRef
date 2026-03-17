@@ -302,7 +302,7 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
       <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-6 p-4 md:p-6 lg:grid-cols-[280px_1fr] lg:pt-6 mobile-app-container">
         {/* Sidebar - Desktop Only */}
         <aside className="premium-dark-panel h-fit lg:sticky lg:top-6 p-6 lg:p-8 flex flex-col overflow-hidden transition-all duration-300 mobile-hide-sidebar">
-          <div className="premium-orb premium-orb-gold !top-[-110px] !right-[-50px] !h-[220px] !w-[220px] opacity-40" />
+          <div className="premium-orb premium-orb-gold !top-[-110px] !right-[-50px] !h-[220px] !w-[220px]" />
           <div className="relative z-10 flex h-full flex-col">
             <div className="flex items-center justify-between gap-3">
               <div className="inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/7 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.34em] text-white/75">
@@ -312,7 +312,7 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
               <ThemeToggle theme={theme} onToggle={onToggleTheme} />
             </div>
 
-            <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5 backdrop-blur-md">
+            <div className="mt-8 rounded-[1.6rem] border border-white/10 bg-white/6 p-5 backdrop-blur-md advisor-card">
               <div className="text-[10px] font-bold uppercase tracking-[0.26em] text-white/40 truncate">
                 {auth.user.role === "admin" ? "Administrador" : "Advisor"}
               </div>
@@ -383,7 +383,7 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pb-6">
               {/* Header / Hero - Tightened */}
               <div className="md:col-span-12 premium-surface px-6 py-5 lg:px-8 lg:py-6 flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden relative">
-                <div className="premium-orb premium-orb-gold !-top-10 !-right-10 !opacity-20" />
+                <div className="premium-orb premium-orb-gold !-top-10 !-right-10" />
                 <div className="relative z-10">
                   <div className="premium-eyebrow">Perspectiva Comercial</div>
                   <h1 className="mt-2 font-display text-4xl font-bold tracking-tight text-slate-950">Tu pipeline en tiempo real</h1>
@@ -638,7 +638,7 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
             <div className="space-y-6 pb-10">
               {/* Admin Header */}
               <div className="premium-surface px-8 py-8 flex flex-col xl:flex-row xl:items-center justify-between gap-8 overflow-hidden relative">
-                <div className="premium-orb premium-orb-blue !-top-20 !-left-20 !opacity-10" />
+                <div className="premium-orb premium-orb-blue !-top-20 !-left-20" />
                 <div className="relative z-10 flex-1">
                   <SectionTitle eyebrow="Administración" title="Control de Mando" description="Vista corporativa y equipo." />
                 </div>

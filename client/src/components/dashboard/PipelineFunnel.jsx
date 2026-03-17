@@ -29,7 +29,7 @@ export function PipelineFunnel({ data }) {
             <div key={stage.id} className="group relative flex items-center h-full min-h-[60px]">
               {/* Funnel Segment */}
               <div 
-                className="h-full rounded-2xl transition-all duration-700 ease-out relative overflow-hidden shadow-sm group-hover:shadow-md group-hover:scale-[1.01]"
+                className="h-full rounded-2xl transition-all duration-700 ease-out relative overflow-hidden shadow-sm group-hover:shadow-md group-hover:scale-[1.01] funnel-segment"
                 style={{ 
                   width: `${Math.max(width, 15)}%`, 
                   background: `linear-gradient(90deg, ${stage.color} 0%, ${stage.color}dd 100%)`,

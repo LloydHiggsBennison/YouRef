@@ -42,8 +42,8 @@ export function MiniBars({ title, data, accent, tone }) {
               <span className="font-medium text-slate-700">{item.label}</span>
               <span className="font-semibold text-slate-950">{item.value}</span>
             </div>
-            <div className="h-3 rounded-full bg-slate-100">
-              <div className="h-3 rounded-full transition-all duration-500" style={{ width: `${(item.value / max) * 100}%`, background: accent }} />
+            <div className="h-3 rounded-full bg-slate-100 overflow-hidden">
+              <div className="h-3 rounded-full transition-all duration-500 render-layer" style={{ width: `${(item.value / max) * 100}%`, background: accent }} />
             </div>
           </div>
         ))}
