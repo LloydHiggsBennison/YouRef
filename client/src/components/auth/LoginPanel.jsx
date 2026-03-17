@@ -3,6 +3,7 @@ import { classNames } from "../../utils";
 import { ThemeToggle } from "../layout/ThemeToggle";
 import { Field } from "../ui/Input";
 import { apiRequest } from "../../api";
+import "./LoginMobile.css";
 
 const emptyRegister = {
   firstName: "",
@@ -87,9 +88,9 @@ export function LoginPanel({
   }
 
   return (
-    <div className={classNames("theme-shell min-h-screen px-4 py-4 lg:px-6 lg:py-6", theme === "dark" ? "theme-dark" : "theme-light")}>
-      <div className="mx-auto grid min-h-[calc(100vh-2rem)] max-w-[1560px] overflow-hidden rounded-[2.5rem] border border-white/60 bg-white/55 shadow-[0_35px_120px_rgba(15,23,42,0.18)] backdrop-blur-xl lg:grid-cols-[1.08fr_0.92fr]">
-        <section className="hidden lg:flex lg:flex-col lg:justify-between premium-dark-panel relative overflow-hidden px-8 py-10 lg:px-14 lg:py-14">
+    <div className={classNames("theme-shell min-h-screen px-0 py-0 lg:px-6 lg:py-6 login-mobile-container", theme === "dark" ? "theme-dark" : "theme-light")}>
+      <div className="mx-auto grid min-h-screen lg:min-h-[calc(100vh-2rem)] max-w-[1560px] overflow-hidden rounded-none lg:rounded-[2.5rem] border-0 lg:border border-white/60 bg-white/55 shadow-none lg:shadow-[0_35px_120px_rgba(15,23,42,0.18)] backdrop-blur-xl lg:grid-cols-[1.08fr_0.92fr] login-mobile-shell">
+        <section className="hidden lg:flex lg:flex-col lg:justify-between premium-dark-panel relative overflow-hidden px-8 py-10 lg:px-14 lg:py-14 login-mobile-system-info">
           <div className="premium-orb premium-orb-gold" />
           <div className="premium-orb premium-orb-blue" />
           <div className="premium-grid absolute inset-0 opacity-40" />
@@ -119,8 +120,8 @@ export function LoginPanel({
           </div>
         </section>
 
-        <section className="flex items-center justify-center bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(246,246,244,0.88))] px-6 py-8 lg:px-10">
-          <div className="w-full max-w-2xl rounded-[2rem] border border-white/70 bg-white/88 p-6 shadow-[0_25px_90px_rgba(15,23,42,0.12)] backdrop-blur-xl lg:p-8">
+        <section className="flex items-center justify-center bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(246,246,244,0.88))] px-6 py-8 lg:px-10 login-mobile-auth-section">
+          <div className="w-full max-w-2xl rounded-none lg:rounded-[2rem] border-0 lg:border border-white/70 bg-transparent lg:bg-white/88 p-0 lg:p-8 shadow-none lg:shadow-[0_25px_90px_rgba(15,23,42,0.12)] backdrop-blur-none lg:backdrop-blur-xl login-mobile-form-card">
             <ThemeToggle theme={theme} onToggle={onToggleTheme} />
             <div className="mx-auto max-w-lg">
               <div className="flex items-start justify-between gap-4">

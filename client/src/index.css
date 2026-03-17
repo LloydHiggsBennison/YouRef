@@ -208,6 +208,43 @@ body::before {
 
 .theme-dark {
   background: linear-gradient(145deg, #0b1220 0%, #101827 48%, #0f1c2d 100%);
+  color: #f8fafc;
+}
+
+.auth-panel-section {
+  background: var(--auth-bg-light);
+}
+
+.theme-dark .auth-panel-section {
+  background: var(--auth-bg-dark);
+}
+
+.auth-form-container {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+}
+
+.theme-dark .auth-form-container {
+  background: rgba(30, 41, 59, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 25px 90px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Specific Dark Mode overrides for premium inputs and sections */
+.theme-dark .premium-input {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border-color: rgba(148, 163, 184, 0.1) !important;
+  color: #f8fafc !important;
+}
+
+.theme-dark .premium-input::placeholder {
+  color: #64748b !important;
+}
+
+.theme-dark section.flex.items-center.justify-center {
+  background: radial-gradient(circle at top right, #1e293b, #020617) !important;
 }
 
 .theme-toggle {

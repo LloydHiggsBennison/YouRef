@@ -1,0 +1,78 @@
+/* client/src/components/auth/LoginMobile.css */
+
+/* Mobile-only overrides for the Login Panel */
+@media (max-width: 1023px) {
+  .login-mobile-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 100vh !important;
+  }
+
+  .login-mobile-shell {
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    min-height: 100vh !important;
+  }
+
+  .login-mobile-form-card {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    padding: 2rem 1.5rem !important;
+    backdrop-filter: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Force the system info to be hidden just in case */
+  .login-mobile-system-info {
+    display: none !important;
+  }
+
+  /* Make sure background fills correctly on mobile */
+  .login-mobile-auth-section {
+    min-height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Dark mode specific mobile overrides */
+  .theme-dark.login-mobile-container {
+    background: #020617 !important;
+  }
+
+  .theme-dark .login-mobile-auth-section {
+    background: radial-gradient(circle at top right, #1e293b, #020617) !important;
+  }
+
+  .theme-dark .login-mobile-form-card {
+    background: transparent !important;
+  }
+
+  .theme-dark .premium-input {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border-color: rgba(148, 163, 184, 0.1) !important;
+    color: #f8fafc !important;
+  }
+
+  .theme-dark .premium-button {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .theme-dark .premium-eyebrow {
+    color: #94a3b8 !important;
+  }
+
+  .theme-dark h2, .theme-dark h3 {
+    color: #ffffff !important;
+  }
+
+  .theme-dark p {
+    color: #94a3b8 !important;
+  }
+}
