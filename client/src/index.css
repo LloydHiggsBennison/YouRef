@@ -248,18 +248,22 @@ body::before {
 }
 
 .theme-toggle {
-  position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
-  z-index: 70;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   border: 1px solid rgba(148, 163, 184, 0.22);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.78);
-  padding: 0.35rem;
+  padding: 0.3rem;
   backdrop-filter: blur(14px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.theme-toggle-floating {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 70;
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 

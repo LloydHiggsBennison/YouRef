@@ -122,7 +122,7 @@ export function LoginPanel({
 
         <section className="flex items-center justify-center bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(246,246,244,0.88))] px-6 py-8 lg:px-10 login-mobile-auth-section">
           <div className="w-full max-w-2xl rounded-none lg:rounded-[2rem] border-0 lg:border border-white/70 bg-transparent lg:bg-white/88 p-0 lg:p-8 shadow-none lg:shadow-[0_25px_90px_rgba(15,23,42,0.12)] backdrop-blur-none lg:backdrop-blur-xl login-mobile-form-card">
-            <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+            <ThemeToggle theme={theme} onToggle={onToggleTheme} className="theme-toggle-floating" />
             <div className="mx-auto max-w-lg">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-4">

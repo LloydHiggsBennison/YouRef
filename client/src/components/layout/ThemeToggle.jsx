@@ -1,8 +1,8 @@
 import { classNames } from "../../utils";
 
-export function ThemeToggle({ theme, onToggle }) {
+export function ThemeToggle({ theme, onToggle, className }) {
   return (
-    <div className="theme-toggle" aria-label="Cambiar tema">
+    <div className={classNames("theme-toggle", className)} aria-label="Cambiar tema">
       <button type="button" onClick={() => theme !== "light" && onToggle()} className={classNames("theme-icon-button", theme === "light" ? "is-active" : "")} aria-label="Modo claro">
         <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="4" />
