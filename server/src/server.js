@@ -41,12 +41,13 @@ const allowedOrigins = process.env.CLIENT_URL
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
         callback(null, true);
         return;
       }
 
-      callback(new Error(`Origen no permitido por CORS: ${origin}`));
+      console.warn(`CORS blocked for origin: ${origin}`);
+      callback(null, false);
     },
     credentials: true
   })
