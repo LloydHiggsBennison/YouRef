@@ -45,6 +45,14 @@ const INCOME_RANGES = [
   { label: "3 Millones +", value: 4000000 }
 ];
 
+const DOWN_PAYMENT_RANGES = [
+  { label: "Sin pie", value: 0 },
+  { label: "0 - 5 Millones", value: 5000000 },
+  { label: "5-10 Millones", value: 10000000 },
+  { label: "10-20 Millones", value: 20000000 },
+  { label: "20 Millones +", value: 30000000 }
+];
+
 function sumSeries(items = []) {
   return items.reduce((total, item) => total + Number(item.value || 0), 0);
 }
@@ -375,6 +383,9 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
                             <span className="rounded-full bg-emerald/5 px-2.5 py-1 text-[9px] font-bold uppercase text-emerald border border-emerald/10">
                               Renta {INCOME_RANGES.find(r => r.value === Number(item.income))?.label || currency(item.income)}
                             </span>
+                            <span className="rounded-full bg-slate-50 px-2.5 py-1 text-[9px] font-bold uppercase text-slate-600 border border-slate-100">
+                              Pie {item.income === 0 ? "Sin pie" : (DOWN_PAYMENT_RANGES.find(r => r.value === Number(item.downPayment))?.label || currency(item.downPayment))}
+                            </span>
                             <span className="rounded-full bg-slate-50 px-2.5 py-1 text-[9px] font-bold uppercase text-slate-600 border border-slate-100">{item.commune}</span>
                           </div>
                         </div>
@@ -464,13 +475,21 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
                 </div>
               </div>
 
-              {/* New Income Distribution Section */}
-              <div className="md:col-span-12">
+              {/* New Distribution Sections */}
+              <div className="md:col-span-6">
                 <MiniBars 
                   title="Distribución de Renta" 
                   data={dashboard.incomeRanges || []} 
                   accent="linear-gradient(90deg, #0d5d56 0%, #2a8b81 100%)" 
                   tone="#e1f2f0" 
+                />
+              </div>
+              <div className="md:col-span-6">
+                <MiniBars 
+                  title="Distribución de Pie" 
+                  data={dashboard.downPaymentRanges || []} 
+                  accent="linear-gradient(90deg, #ae684f 0%, #d1987f 100%)" 
+                  tone="#f4e7e1" 
                 />
               </div>
             </div>
@@ -551,7 +570,35 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
                         })}
                       </div>
                     </div>
-                    <Field label="Pie (CLP)" value={referralForm.downPayment} onChange={(value) => setReferralForm((prev) => ({ ...prev, downPayment: value }))} />
+                    
+                    <div className="sm:col-span-2">
+                      <span className="mb-2 block text-[11px] font-bold uppercase tracking-[0.24em] text-slate-500">Monto del Pie</span>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {DOWN_PAYMENT_RANGES.map((range) => {
+                          const active = Number(referralForm.downPayment) === range.value;
+                          return (
+                            <button
+                              key={range.label}
+                              type="button"
+                              onClick={() => setReferralForm((prev) => ({ ...prev, downPayment: range.value.toString() }))}
+                              className={classNames(
+                                "flex items-center justify-center rounded-2xl border px-3 py-4 text-center transition-all duration-300",
+                                active 
+                                  ? "border-slate-950 bg-slate-950 text-white shadow-lg scale-[1.02]" 
+                                  : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50"
+                              )}
+                            >
+                              <div className="flex flex-col items-center gap-1">
+                                <span className={classNames("h-4 w-4 rounded-full border-2 flex items-center justify-center mb-1", active ? "border-white" : "border-slate-300")}>
+                                  {active && <span className="h-2 w-2 rounded-full bg-white transition-all" />}
+                                </span>
+                                <span className="text-[10px] font-bold uppercase tracking-wider leading-tight">{range.label}</span>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                   <label className="block">
                     <span className="mb-2 block text-[11px] font-bold uppercase tracking-[0.24em] text-slate-500">Notas Adicionales</span>
@@ -755,12 +802,20 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
                     </div>
 
                     {/* Geographical & Goals (Analytics) */}
-                    <div className="md:col-span-12">
+                    <div className="md:col-span-6">
                       <MiniBars 
-                        title="Distribución de Renta (Equipo)" 
-                        data={summary.incomeRanges || adminData.dashboard.incomeRanges || []} 
+                        title="Distribución de Renta" 
+                        data={adminData.dashboard.incomeRanges || []} 
                         accent="linear-gradient(90deg,#d4af37 0%,#a98b2c 100%)" 
                         tone="#f9f2e1" 
+                      />
+                    </div>
+                    <div className="md:col-span-6">
+                      <MiniBars 
+                        title="Distribución de Pie" 
+                        data={adminData.dashboard.downPaymentRanges || []} 
+                        accent="linear-gradient(90deg,#ae684f 0%,#d1987f 100%)" 
+                        tone="#f4e7e1" 
                       />
                     </div>
                     <div className="md:col-span-6">

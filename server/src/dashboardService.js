@@ -51,6 +51,27 @@ function countIncomeRanges(referrals) {
   return Object.entries(counts).map(([label, value]) => ({ label, value }));
 }
 
+function countDownPaymentRanges(referrals) {
+  const counts = {
+    "Sin pie": 0,
+    "0 - 5M": 0,
+    "5 - 10M": 0,
+    "10 - 20M": 0,
+    "20M +": 0
+  };
+
+  referrals.forEach((item) => {
+    const val = Number(item.down_payment || 0);
+    if (val === 0) counts["Sin pie"]++;
+    else if (val <= 5000000) counts["0 - 5M"]++;
+    else if (val <= 10000000) counts["5 - 10M"]++;
+    else if (val <= 20000000) counts["10 - 20M"]++;
+    else counts["20M +"]++;
+  });
+
+  return Object.entries(counts).map(([label, value]) => ({ label, value }));
+}
+
 export function buildDashboard(referrals, users, selectedUserId = "all") {
   const visibleReferrals =
     selectedUserId === "all"
@@ -75,6 +96,7 @@ export function buildDashboard(referrals, users, selectedUserId = "all") {
 
     goals: countGoals(visibleReferrals),
     incomeRanges: countIncomeRanges(visibleReferrals),
+    downPaymentRanges: countDownPaymentRanges(visibleReferrals),
     topCommunes: referralsPerCommune(visibleReferrals),
     timeline: visibleReferrals.reduce((acc, item) => {
       const date = item.created_at ? item.created_at.slice(0, 10) : new Date().toISOString().slice(0, 10);
