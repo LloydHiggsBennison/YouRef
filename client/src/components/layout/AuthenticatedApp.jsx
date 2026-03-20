@@ -443,6 +443,24 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
                 <MiniBars title="Zonas Críticas" data={dashboard.topCommunes} accent="linear-gradient(90deg,#ae684f 0%,#d1987f 100%)" tone="#f4e7e1" />
               </div>
 
+              {/* New Distribution Sections */}
+              <div className="md:col-span-6">
+                <MiniBars 
+                  title="Distribución de Renta" 
+                  data={dashboard.incomeRanges || []} 
+                  accent="linear-gradient(90deg, #0d5d56 0%, #2a8b81 100%)" 
+                  tone="#e1f2f0" 
+                />
+              </div>
+              <div className="md:col-span-6">
+                <MiniBars 
+                  title="Distribución de Pie" 
+                  data={dashboard.downPaymentRanges || []} 
+                  accent="linear-gradient(90deg, #ae684f 0%, #d1987f 100%)" 
+                  tone="#f4e7e1" 
+                />
+              </div>
+
               {/* Small details footer or additional bento bits */}
               <div className="md:col-span-12 grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="premium-card p-4 flex items-center justify-between">
@@ -473,24 +491,6 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
                   </div>
                   <span className="h-2 w-2 rounded-full bg-[#0d5d56]" />
                 </div>
-              </div>
-
-              {/* New Distribution Sections */}
-              <div className="md:col-span-6">
-                <MiniBars 
-                  title="Distribución de Renta" 
-                  data={dashboard.incomeRanges || []} 
-                  accent="linear-gradient(90deg, #0d5d56 0%, #2a8b81 100%)" 
-                  tone="#e1f2f0" 
-                />
-              </div>
-              <div className="md:col-span-6">
-                <MiniBars 
-                  title="Distribución de Pie" 
-                  data={dashboard.downPaymentRanges || []} 
-                  accent="linear-gradient(90deg, #ae684f 0%, #d1987f 100%)" 
-                  tone="#f4e7e1" 
-                />
               </div>
             </div>
           )}
@@ -778,6 +778,24 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
                 const summary = buildAdminSummary(adminData.dashboard);
                 return (
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    {/* Geographical & Goals (Analytics) */}
+                    <div className="md:col-span-6">
+                      <MiniBars 
+                        title="Distribución de Renta" 
+                        data={adminData.dashboard.incomeRanges || []} 
+                        accent="linear-gradient(90deg,#d4af37 0%,#a98b2c 100%)" 
+                        tone="#f9f2e1" 
+                      />
+                    </div>
+                    <div className="md:col-span-6">
+                      <MiniBars 
+                        title="Distribución de Pie" 
+                        data={adminData.dashboard.downPaymentRanges || []} 
+                        accent="linear-gradient(90deg,#ae684f 0%,#d1987f 100%)" 
+                        tone="#f4e7e1" 
+                      />
+                    </div>
+                    
                     {/* Top Insights Row */}
                     <div className="md:col-span-3">
                       <AdminInsightCard label="Capacidad" value={summary.total} hint="Leads totales" accent="#d4af37" />
@@ -802,22 +820,6 @@ export function AuthenticatedApp({ auth, onLogout, onProfileSave, setAuthNotice,
                     </div>
 
                     {/* Geographical & Goals (Analytics) */}
-                    <div className="md:col-span-6">
-                      <MiniBars 
-                        title="Distribución de Renta" 
-                        data={adminData.dashboard.incomeRanges || []} 
-                        accent="linear-gradient(90deg,#d4af37 0%,#a98b2c 100%)" 
-                        tone="#f9f2e1" 
-                      />
-                    </div>
-                    <div className="md:col-span-6">
-                      <MiniBars 
-                        title="Distribución de Pie" 
-                        data={adminData.dashboard.downPaymentRanges || []} 
-                        accent="linear-gradient(90deg,#ae684f 0%,#d1987f 100%)" 
-                        tone="#f4e7e1" 
-                      />
-                    </div>
                     <div className="md:col-span-6">
                       <MiniBars title="Deseo de Compra" data={adminData.dashboard.goals} accent="linear-gradient(90deg,#d4af37 0%,#a98b2c 100%)" tone="#f9f2e1" />
                     </div>
